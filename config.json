@@ -1,0 +1,8 @@
+{
+  "WifiSsid":"NCW",
+  "WifiPwd":"malolos5459",
+  "DeviceId":"bme280",
+  "SensorModule":"sensor_bme280",
+  "SampleRate":20,
+  "MqttBroker":"192.168.1.122"
+}
