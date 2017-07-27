@@ -32,6 +32,14 @@ class Config():
             self.mqttBroker = config['MqttBroker']
             self.wifiSsid = config['WifiSsid']
             self.wifiPwd = config['WifiPwd']
+            if config.get('IsESP8266'):
+                platform = config['IsESP8266']
+                if platform == 'False':
+                    self.isEsp8266 = False
+                else:
+                    self.isEsp8266 = True
+            else:
+                self.isEsp8266 = True            
 
         except:
             self.config_defaults()

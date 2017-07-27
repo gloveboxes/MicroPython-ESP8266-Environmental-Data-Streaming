@@ -11,6 +11,7 @@ import gc
 import config
 
 
+
 # Wifi connect established in the boot.py file. Uncomment if needed
 # import network
 # sta_if.active(True)
@@ -23,23 +24,33 @@ import config
 
 cfg = config.Config('config.json')
 
-BuiltinLedPin = 2
-builtinLed = Pin(BuiltinLedPin, Pin.OUT)
-adc = ADC(0)            # create ADC object on ADC pin
+if cfg.isEsp8266:
+    BuiltinLedPin = 2
+    i2c = I2C(scl=Pin(5), sda=Pin(4))
+    adc = ADC(0)            # create ADC object on ADC pin
+    mqttId = str(esp.flashid())
+    esp.sleep_type(esp.SLEEP_LIGHT)
+else:
+    BuiltinLedPin = 5
+    i2c = I2C(scl=Pin(22), sda=Pin(21))
+    adc = None
+    import urandom as random
+    mqttId = str(random.randint(100,100000))
 
-i2c = I2C(scl=Pin(5), sda=Pin(4))
+
+
+builtinLed = Pin(BuiltinLedPin, Pin.OUT)
+
 mySensor = cfg.sensor.Sensor(i2c)
 
-client = MQTTClient(str(esp.flash_id()), cfg.mqttBroker)
+client = MQTTClient(mqttId, cfg.mqttBroker)
 sta_if.connect(cfg.wifiSsid, cfg.wifiPwd)
-
-esp.sleep_type(esp.SLEEP_LIGHT)
 
 display = None
 
 
 def initDisplay(i2c):
-    global display
+    global display, adc
     i2cDevices = I2C.scan(i2c)
     if 60 in i2cDevices:
         display = oled.SSD1306_I2C(64, 48, i2c)
@@ -67,6 +78,8 @@ def checkwifi():
 
 
 def setContrast():
+    if adc == None:
+        return 255
     lightlevel = adc.read()
     if lightlevel < 200:
         return 0

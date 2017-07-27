@@ -3,6 +3,7 @@
   "WifiPwd":"malolos5459",
   "DeviceId":"bme280",
   "SensorModule":"sensor_bme280",
-  "SampleRate":20,
-  "MqttBroker":"192.168.1.122"
+  "SampleRate":30,
+  "MqttBroker":"192.168.1.122",
+  "IsESP8266":"True"
 }
