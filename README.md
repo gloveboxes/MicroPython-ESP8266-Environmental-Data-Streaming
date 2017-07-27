@@ -1,8 +1,9 @@
-# Streaming Data from ESP32 using MicroPython and MQTT
+# Streaming Data from ESP8266 using MicroPython and MQTT
 
 ## Resources 
 
 * [MicroPython](https://micropython.org/)
+* [MicroPython Online Simulator](https://micropython.org/unicorn/)
 * [MicroPython libraries](https://github.com/micropython/micropython-lib)
 * [MicroPython PiP Package Index](https://pypi.python.org/pypi?%3Aaction=search&term=micropython)
 * [ESP8266 Documentation](http://docs.micropython.org/en/latest/esp8266/)
