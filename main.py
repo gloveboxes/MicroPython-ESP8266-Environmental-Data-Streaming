@@ -21,6 +21,9 @@ import config
 # upip.install('micropython-umqtt.simple')
 # upip.install('micropython-umqtt.robust')
 
+ap_if = network.WLAN(network.AP_IF) # turn off the access point which is on by default
+ap_if.active(False)
+
 
 cfg = config.Config('config.json')
 
@@ -28,7 +31,7 @@ if cfg.isEsp8266:
     BuiltinLedPin = 2
     i2c = I2C(scl=Pin(5), sda=Pin(4))
     adc = ADC(0)            # create ADC object on ADC pin
-    mqttId = str(esp.flashid())
+    mqttId = str(esp.flash_id())
     esp.sleep_type(esp.SLEEP_LIGHT)
 else:
     BuiltinLedPin = 5
